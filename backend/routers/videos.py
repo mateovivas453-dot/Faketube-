@@ -4,14 +4,15 @@ import models, schemas, auth, database
 from typing import List, Optional
 import os
 import uuid
-import aiofiles
+import boto3
 from sqlalchemy import func
 
 router = APIRouter(tags=["videos"])
 
-UPLOAD_DIR = os.getenv("UPLOAD_DIR", "./uploads")
-VIDEOS_DIR = os.path.join(UPLOAD_DIR, "videos")
-THUMBNAILS_DIR = os.path.join(UPLOAD_DIR, "thumbnails")
+AWS_REGION = os.getenv("AWS_REGION", "us-east-2")
+S3_VIDEOS_BUCKET = os.getenv("S3_VIDEOS_BUCKET", "youtubeclon-videos")
+S3_IMAGES_BUCKET = os.getenv("S3_IMAGES_BUCKET", "youtubeclon-images")
+s3_client = boto3.client('s3', region_name=AWS_REGION)
 
 
 def serialize_video(video, user, db, current_user_id: Optional[int] = None):
@@ -69,22 +70,33 @@ async def upload_video(
     video_filename = f"{video_id_str}{video_ext}"
     thumb_filename = f"{video_id_str}_thumb{thumb_ext}"
     
-    video_path = os.path.join(VIDEOS_DIR, video_filename)
-    thumb_path = os.path.join(THUMBNAILS_DIR, thumb_filename)
-    
-    async with aiofiles.open(video_path, 'wb') as out_file:
-        content = await video_file.read()
-        await out_file.write(content)
-        
-    async with aiofiles.open(thumb_path, 'wb') as out_file:
-        content = await thumbnail_file.read()
-        await out_file.write(content)
+    try:
+        # Subir video directamente a S3
+        s3_client.upload_fileobj(
+            video_file.file,
+            S3_VIDEOS_BUCKET,
+            video_filename,
+            ExtraArgs={"ContentType": "video/mp4"}
+        )
+        video_url = f"https://{S3_VIDEOS_BUCKET}.s3.{AWS_REGION}.amazonaws.com/{video_filename}"
+
+        # Subir miniatura directamente a S3
+        s3_client.upload_fileobj(
+            thumbnail_file.file,
+            S3_IMAGES_BUCKET,
+            thumb_filename,
+            ExtraArgs={"ContentType": "image/jpeg"}
+        )
+        thumbnail_url = f"https://{S3_IMAGES_BUCKET}.s3.{AWS_REGION}.amazonaws.com/{thumb_filename}"
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al subir archivos a S3: {str(e)}")
 
     new_video = models.Video(
         title=title,
         description=description,
-        video_url=f"/uploads/videos/{video_filename}",
-        thumbnail_url=f"/uploads/thumbnails/{thumb_filename}",
+        video_url=video_url,
+        thumbnail_url=thumbnail_url,
         user_id=current_user.id,
         is_short=1 if is_short else 0
     )
@@ -167,18 +179,6 @@ def delete_video(
     if video.user_id != current_user.id:
         raise HTTPException(status_code=403, detail="Not authorized to delete this video")
         
-    # Delete files
-    video_path = os.path.join(".", video.video_url.lstrip("/"))
-    thumb_path = os.path.join(".", video.thumbnail_url.lstrip("/"))
-    
-    try:
-        if os.path.exists(video_path):
-            os.remove(video_path)
-        if os.path.exists(thumb_path):
-            os.remove(thumb_path)
-    except Exception as e:
-        pass # Handle if files are already missing or permission denied
-        
     db.delete(video)
     db.commit()
     return None
@@ -240,4 +240,3 @@ async def toggle_like(
 
     user = db.query(models.User).filter(models.User.id == video.user_id).first()
     return serialize_video(video, user, db, current_user.id)
-
