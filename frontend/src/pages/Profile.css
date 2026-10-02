@@ -1,0 +1,375 @@
+.profile-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  color: #fff;
+}
+
+.profile-banner {
+  width: 100%;
+  height: 16vw;
+  min-height: 100px;
+  max-height: 250px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.banner-upload-label {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.banner-upload-label:hover {
+  background: rgba(255, 0, 85, 0.8);
+  border-color: #ff0055;
+  box-shadow: 0 0 10px #ff0055;
+}
+
+.profile-info-section {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 0 16px;
+  margin-bottom: 24px;
+}
+
+.avatar-wrapper {
+  position: relative;
+  width: 128px;
+  height: 128px;
+}
+
+.profile-avatar-large {
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 56px;
+  font-weight: 400;
+  flex-shrink: 0;
+  border: 4px solid #0f0f12;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+.profile-avatar-img {
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #0f0f12;
+}
+
+.avatar-upload-label {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background: #ff0055;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 3px solid #0f0f12;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.avatar-upload-label:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px #ff0055;
+}
+
+.profile-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 8px;
+}
+
+.profile-details h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+.profile-handle {
+  color: #aaaaaa;
+  font-size: 14px;
+}
+
+.profile-bio {
+  color: #f1f1f1;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.profile-owner-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.profile-subscribe-btn {
+  flex: 0 0 auto;
+  height: 38px;
+  padding: 0 18px;
+  border: 1px solid #fff;
+  border-radius: 20px;
+  background: #fff;
+  color: #111;
+  font-size: 14px;
+  font-weight: 700;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.profile-subscribe-btn:hover {
+  background: #e5e5e5;
+}
+
+.profile-subscribe-btn.subscribed {
+  border-color: #555;
+  background: #272727;
+  color: #f1f1f1;
+}
+
+.profile-subscribe-btn.subscribed:hover {
+  background: #3f3f3f;
+}
+
+.profile-subscribe-btn:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.upload-btn {
+  background-color: #fff;
+  color: #0f0f0f;
+  border-radius: 18px;
+  padding: 0 16px;
+  height: 36px;
+  font-weight: 500;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.upload-btn:hover {
+  background-color: #d9d9d9;
+}
+
+.short-upload-btn {
+  background: #e62117;
+  color: #fff;
+}
+
+.short-upload-btn:hover {
+  background: #c91c13;
+}
+
+.edit-profile-btn {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 18px;
+  padding: 0 16px;
+  height: 36px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.edit-profile-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.edit-profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #333;
+}
+
+.edit-profile-form input, .edit-profile-form textarea {
+  background: #000;
+  border: 1px solid #444;
+  color: #fff;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.edit-btns {
+  display: flex;
+  gap: 10px;
+}
+
+.save-btn {
+  background: #ff0055;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: #444;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.profile-tabs {
+  display: flex;
+  gap: 32px;
+  padding: 0 16px;
+  border-bottom: 1px solid #3f3f3f;
+  margin-bottom: 24px;
+}
+
+.tab {
+  color: #aaaaaa;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 12px 0;
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.tab:hover {
+  color: #fff;
+}
+
+.tab.active {
+  color: #fff;
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #ff0055;
+}
+
+.profile-content {
+  padding: 0 16px;
+}
+
+.empty-profile {
+  text-align: center;
+  color: #aaaaaa;
+  padding: 40px;
+  font-size: 16px;
+}
+
+.profile-video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px 16px;
+}
+
+.profile-video-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.video-management {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.edit-btn, .delete-btn {
+  flex: 1;
+  padding: 6px 0;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid #3f3f3f;
+  color: #fff;
+  background: none;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background-color: #3f3f3f;
+}
+
+.delete-btn {
+  color: #ff4e45;
+  border-color: rgba(255, 78, 69, 0.3);
+}
+
+.delete-btn:hover {
+  background-color: rgba(255, 78, 69, 0.1);
+}
+
+@media (max-width: 600px) {
+  .profile-banner {
+    height: 30vw;
+    min-height: 96px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+  }
+
+  .profile-info-section {
+    gap: 14px;
+    padding: 0 4px;
+    align-items: center;
+  }
+
+  .avatar-wrapper,
+  .profile-avatar-large,
+  .profile-avatar-img {
+    width: 88px;
+    height: 88px;
+  }
+
+  .profile-avatar-large {
+    font-size: 38px;
+  }
+
+  .profile-details h1 {
+    font-size: 20px;
+    overflow-wrap: anywhere;
+  }
+
+  .profile-content {
+    padding: 0 4px;
+  }
+
+  .profile-video-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+}
